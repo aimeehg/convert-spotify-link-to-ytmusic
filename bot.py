@@ -60,9 +60,6 @@ def handle_spotify_link(message):
             youtube_music_url = f"https://music.youtube.com/watch?v={video_id}"
             bot.send_message(chat_id, f"YouTube Music URL: {youtube_music_url}")
         else:
-            # Display a menu with the first three results
-            bot.send_message(chat_id, "Select a result:")
-
             # Clear the existing keyboard
             markup.keyboard = []
 
@@ -83,7 +80,7 @@ def handle_spotify_link(message):
 
                     # Create a custom keyboard button for each result
                     callback_data = f"result_{index}_{youtube_music_url}"
-                    button_text = f"{index}. {song_info}"
+                    button_text = f"{song_info}"
                     button = telebot.types.InlineKeyboardButton(
                         text=button_text,
                         callback_data=callback_data
@@ -93,7 +90,7 @@ def handle_spotify_link(message):
 
             # Send a single message with all buttons
             if len(markup.keyboard) > 0:
-                bot.send_message(chat_id, "Select a result:", reply_markup=markup)
+                bot.send_message(chat_id, "Select a song:", reply_markup=markup)
             else:
                 bot.send_message(chat_id, "No results found on YouTube Music.")
 
